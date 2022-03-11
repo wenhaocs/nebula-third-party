@@ -136,6 +136,7 @@ set(common_configure_envs
 )
 
 set(ALL_TARGETS
+    aws-sdk-cpp
     berkeleydb
     bison
     boost
@@ -168,7 +169,7 @@ set(ALL_TARGETS
     mstch
     openssl
     proxygen
-    rocksdb
+    rocksdb-cloud
     s2geometry
     simdjson
     snappy
@@ -267,12 +268,13 @@ maybe_add_dependencies(fizz folly)
 maybe_add_dependencies(wangle folly fizz)
 maybe_add_dependencies(fbthrift folly krb5 bison flex mstch zlib zstd wangle fatal)
 maybe_add_dependencies(proxygen wangle libunwind gperf)
-maybe_add_dependencies(rocksdb snappy zlib zstd bzip2 lz4 lzma libunwind)
+maybe_add_dependencies(rocksdb-cloud snappy zlib zstd bzip2 lz4 lzma libunwind)
 maybe_add_dependencies(cachelib fbthrift sparsemap fizz googletest)
+maybe_add_dependencies(aws-sdk-cpp libcurl openssl zlib)
 
 # RocksDB has its own copy of gtest, which may conflict with ours
 # Here we build gtest after rocksdb intentionally
-maybe_add_dependencies(googletest rocksdb gflags)
+maybe_add_dependencies(googletest rocksdb-cloud gflags)
 
 if (EXISTS ${CMAKE_INSTALL_PREFIX}/lib64)
     add_custom_target(

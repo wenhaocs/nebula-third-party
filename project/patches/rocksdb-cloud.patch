@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ef434ea..a041d0e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -195,7 +195,7 @@ set(BUILD_DATE "${TS}" CACHE STRING "the time we first built rocksdb")
+ 
+ find_package(Git)
+ 
+-if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
++if(0)
+   execute_process(WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" OUTPUT_VARIABLE GIT_SHA COMMAND "${GIT_EXECUTABLE}" rev-parse HEAD )
+   execute_process(WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" RESULT_VARIABLE GIT_MOD COMMAND "${GIT_EXECUTABLE}" diff-index HEAD --quiet)
+   execute_process(WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" OUTPUT_VARIABLE GIT_DATE COMMAND "${GIT_EXECUTABLE}" log -1 --date=format:"%Y-%m-%d %T" --format="%ad")
+@@ -947,8 +947,8 @@ set(SOURCES
+         cloud/cloud_scheduler.cc
+         cloud/cloud_storage_provider.cc
+         cloud/cloud_file_cache.cc
+-        db/db_impl/db_impl_remote_compaction.cc
+-        $<TARGET_OBJECTS:build_version>)
++        db/db_impl/db_impl_remote_compaction.cc)
++        #$<TARGET_OBJECTS:build_version>)
+ 
+ list(APPEND SOURCES
+   utilities/transactions/lock/range/range_tree/lib/locktree/concurrent_tree.cc

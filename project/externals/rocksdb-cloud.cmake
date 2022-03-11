@@ -2,17 +2,17 @@
 #
 # This source code is licensed under Apache 2.0 License.
 
-set(name rocksdb)
+set(name rocksdb-cloud)
 set(source_dir ${CMAKE_CURRENT_BINARY_DIR}/${name}/source)
 ExternalProject_Add(
     ${name}
-    URL https://github.com/facebook/rocksdb/archive/refs/tags/v6.26.1.tar.gz
-    URL_HASH MD5=cbccde75a7a933859262044f89ac0ec7
-    DOWNLOAD_NAME rocksdb-6.26.1.tar.gz
+    GIT_REPOSITORY https://github.com/rockset/rocksdb-cloud.git
+    GIT_TAG master
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/${name}
     TMP_DIR ${BUILD_INFO_DIR}
     STAMP_DIR ${BUILD_INFO_DIR}
     DOWNLOAD_DIR ${DOWNLOAD_DIR}
+    PATCH_COMMAND patch -p1 < ${CMAKE_SOURCE_DIR}/patches/${name}.patch
     SOURCE_DIR ${source_dir}
     UPDATE_COMMAND ""
     CMAKE_ARGS
@@ -30,10 +30,11 @@ ExternalProject_Add(
         -DWITH_TOOLS=OFF
         -DUSE_RTTI=ON
         -DFAIL_ON_WARNINGS=OFF
+        -DWITH_AWS=ON
         -DCMAKE_BUILD_TYPE=Release
         "-DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS} -D NPERF_CONTEXT"
     BUILD_IN_SOURCE 1
-    BUILD_COMMAND make -s -j${BUILDING_JOBS_NUM}
+    BUILD_COMMAND env USE_AWS=1 make -s -j${BUILDING_JOBS_NUM}
     INSTALL_COMMAND ""
     LOG_CONFIGURE TRUE
     LOG_BUILD TRUE
