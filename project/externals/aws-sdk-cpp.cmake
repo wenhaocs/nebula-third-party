@@ -8,7 +8,7 @@ ExternalProject_Add(
     ${name}
     GIT_REPOSITORY https://github.com/aws/aws-sdk-cpp.git
     GIT_TAG 1.9.212
-    GIT_SUBMODULES_RECURSE TRUE
+    #GIT_SUBMODULES_RECURSE TRUE
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/${name}
     TMP_DIR ${BUILD_INFO_DIR}
     STAMP_DIR ${BUILD_INFO_DIR}
@@ -17,7 +17,7 @@ ExternalProject_Add(
     UPDATE_COMMAND ""
     CMAKE_ARGS
         ${common_cmake_args}
-        -DBUILD_ONLY="s3;kinesis;transfer"
+        -DBUILD_ONLY=s3;kinesis;transfer
         -DBUILD_SHARED_LIBS=OFF
         -DENABLE_TESTING=OFF
     BUILD_IN_SOURCE 1
