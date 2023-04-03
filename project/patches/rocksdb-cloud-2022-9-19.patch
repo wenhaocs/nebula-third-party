@@ -1,0 +1,10 @@
+diff -ur a/include/rocksdb/rocksdb_namespace.h b/include/rocksdb/rocksdb_namespace.h
+--- a/include/rocksdb/rocksdb_namespace.h
++++ b/include/rocksdb/rocksdb_namespace.h
+@@ -12,5 +12,5 @@
+
+ // Normal logic
+ #ifndef ROCKSDB_NAMESPACE
+-#define ROCKSDB_NAMESPACE rocksdb
++#define ROCKSDB_NAMESPACE rocksdb_cloud
+ #endif
