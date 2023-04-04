@@ -1,10 +1,36 @@
-diff -ur a/include/rocksdb/rocksdb_namespace.h b/include/rocksdb/rocksdb_namespace.h
---- a/include/rocksdb/rocksdb_namespace.h
-+++ b/include/rocksdb/rocksdb_namespace.h
-@@ -12,5 +12,5 @@
+diff -ur a/cloud/aws/aws_s3.cc b/cloud/aws/aws_s3.cc
+--- a/cloud/aws/aws_s3.cc
++++ b/cloud/aws/aws_s3.cc
+@@ -896,7 +896,7 @@ class WritableFileStreamBuf : public std::streambuf {
+  protected:
+   // Appends a block of data to the stream. Must always write n if possible
+   std::streamsize xsputn(const char* s, std::streamsize n) override {
+-    auto st = fileWriter_->Append(rocksdb::Slice(s, n));
++    auto st = fileWriter_->Append(Slice(s, n));
+     if (!st.ok()) {
+       return EOF;
+     }
+diff -ur a/cloud/replication_test.cc b/cloud/replication_test.cc
+--- a/cloud/replication_test.cc
++++ b/cloud/replication_test.cc
+@@ -709,7 +709,7 @@ TEST_F(ReplicationTest, Stress) {
+     auto rand = Random::GetTLSInstance();
+     while (n > 0) {
+       auto cfi = rand->Uniform(kColumnFamilyCount);
+-      rocksdb::WriteBatch wb;
++      WriteBatch wb;
+       for (size_t i = 0; i < 3; ++i) {
+         --n;
+         wb.Put(leaderCF(cf(cfi)), std::to_string(rand->Uniform(kMaxKey)),
+diff -ur a/db/db_impl/replication_codec.cc b/db/db_impl/replication_codec.cc
+--- a/db/db_impl/replication_codec.cc
++++ b/db/db_impl/replication_codec.cc
+@@ -19,7 +19,7 @@ Status DeserializeMemTableSwitchRecord(Slice* src, MemTableSwitchRecord* record)
+ }
 
- // Normal logic
- #ifndef ROCKSDB_NAMESPACE
--#define ROCKSDB_NAMESPACE rocksdb
-+#define ROCKSDB_NAMESPACE rocksdb_cloud
- #endif
+ std::string RecordMemTableSwitch(
+-    const std::shared_ptr<rocksdb::ReplicationLogListener>&
++    const std::shared_ptr<ReplicationLogListener>&
+         replication_log_listener,
+     const MemTableSwitchRecord& record) {
+   ReplicationLogRecord rlr;
