@@ -1,4 +1,4 @@
-diff -ur a/cloud/aws/aws_s3.cc b/cloud/aws/aws_s3.cc
+diff --git a/cloud/aws/aws_s3.cc b/cloud/aws/aws_s3.cc
 --- a/cloud/aws/aws_s3.cc
 +++ b/cloud/aws/aws_s3.cc
 @@ -896,7 +896,7 @@ class WritableFileStreamBuf : public std::streambuf {
@@ -10,7 +10,7 @@ diff -ur a/cloud/aws/aws_s3.cc b/cloud/aws/aws_s3.cc
      if (!st.ok()) {
        return EOF;
      }
-diff -ur a/cloud/replication_test.cc b/cloud/replication_test.cc
+diff --git a/cloud/replication_test.cc b/cloud/replication_test.cc
 --- a/cloud/replication_test.cc
 +++ b/cloud/replication_test.cc
 @@ -709,7 +709,7 @@ TEST_F(ReplicationTest, Stress) {
@@ -22,7 +22,7 @@ diff -ur a/cloud/replication_test.cc b/cloud/replication_test.cc
        for (size_t i = 0; i < 3; ++i) {
          --n;
          wb.Put(leaderCF(cf(cfi)), std::to_string(rand->Uniform(kMaxKey)),
-diff -ur a/db/db_impl/replication_codec.cc b/db/db_impl/replication_codec.cc
+diff --git a/db/db_impl/replication_codec.cc b/db/db_impl/replication_codec.cc
 --- a/db/db_impl/replication_codec.cc
 +++ b/db/db_impl/replication_codec.cc
 @@ -19,7 +19,7 @@ Status DeserializeMemTableSwitchRecord(Slice* src, MemTableSwitchRecord* record)
@@ -34,3 +34,25 @@ diff -ur a/db/db_impl/replication_codec.cc b/db/db_impl/replication_codec.cc
          replication_log_listener,
      const MemTableSwitchRecord& record) {
    ReplicationLogRecord rlr;
+diff --git a/db/db_impl/replication_codec.h b/db/db_impl/repl·ication_codec.h
+--- a/db/db_impl/replication_codec.h
++++ b/db/db_impl/replication_codec.h
+@@ -32,7 +32,7 @@ Status DeserializeMemTableSwitchRecord(
+ // We rely on this assumption during recovery based on Manifest and repliation
+ // log
+ std::string RecordMemTableSwitch(
+-    const std::shared_ptr<rocksdb::ReplicationLogListener>&
++    const std::shared_ptr<ReplicationLogListener>&
+         replication_log_listener,
+     const MemTableSwitchRecord& mem_switch_record);
+ }  // namespace ROCKSDB_NAMESPACE
+diff --git a/include/rocksdb/rocksdb_namespace.h b/include/rocksdb/rocksdb_namespace.h
+--- a/include/rocksdb/rocksdb_namespace.h
++++ b/include/rocksdb/rocksdb_namespace.h
+@@ -12,5 +12,5 @@
+
+ // Normal logic
+ #ifndef ROCKSDB_NAMESPACE
+-#define ROCKSDB_NAMESPACE rocksdb
++#define ROCKSDB_NAMESPACE rocksdb_cloud
+ #endif
