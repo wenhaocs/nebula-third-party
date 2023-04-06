@@ -56,3 +56,4 @@ diff --git a/include/rocksdb/rocksdb_namespace.h b/include/rocksdb/rocksdb_names
 -#define ROCKSDB_NAMESPACE rocksdb
 +#define ROCKSDB_NAMESPACE rocksdb_cloud
  #endif
+
